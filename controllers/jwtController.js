@@ -1,10 +1,10 @@
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 
-import Token from "../models/token.js";
+const Token =  require("../models/token.js");
 
 dotenv.config();
-export const authenticateToken = (request, response, next) => {
+const authenticateToken = (request, response, next) => {
   
   const authHeader = request.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -23,7 +23,7 @@ export const authenticateToken = (request, response, next) => {
   });
 };
 
-export const createNewToken = async (request, response) => {
+const createNewToken = async (request, response) => {
   const refreshToken = request.body.token.split(" ")[1];
 
   if (!refreshToken) {
@@ -47,3 +47,5 @@ export const createNewToken = async (request, response) => {
     return response.status(200).json({ accessToken: accessToken });
   });
 };
+
+module.exports = {authenticateToken, createNewToken}

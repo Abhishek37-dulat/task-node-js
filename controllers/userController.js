@@ -1,9 +1,9 @@
-import User from "../models/userModel.js";
-import emailValidator from 'email-validator';
-import Token from "../models/token.js";
-import jwt from "jsonwebtoken";
+const User = require("../models/userModel.js");
+const emailValidator = require('email-validator');
+const Token = require("../models/token.js");
+const jwt = require("jsonwebtoken");
 
-export const userSignup = async (req, res) => {
+const userSignup = async (req, res) => {
   try {
     if(emailValidator.validate(req.body.email)){
         const userExit = await User.findOne({ email: req.body.email });
@@ -24,7 +24,7 @@ export const userSignup = async (req, res) => {
   }
 };
 
-export const userLogin = async (req, res) => {
+const userLogin = async (req, res) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
@@ -55,3 +55,5 @@ export const userLogin = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+module.exports={userLogin,userSignup}

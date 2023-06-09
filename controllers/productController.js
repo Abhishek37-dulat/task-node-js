@@ -1,6 +1,6 @@
-import Product from "../models/productModel.js";
+const Product =  require("../models/productModel.js");
 
-export const getProducts = async (req, res) => {
+const getProducts = async (req, res) => {
   try {
     const products = await Product.find({});
     console.log(products)
@@ -10,7 +10,7 @@ export const getProducts = async (req, res) => {
   }
 };
 
-export const getProductById = async (req, res) => {
+const getProductById = async (req, res) => {
   try {
     const product = await Product.findOne({ id: req.params.id });
     res.status(200).json(product);
@@ -18,3 +18,5 @@ export const getProductById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+module.exports = {getProducts, getProductById}
